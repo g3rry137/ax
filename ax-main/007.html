@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Loja Online</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .carrinho-info {
+      background: #eee;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .produto {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 1rem;
+      padding: 1rem;
+      width: 250px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .produto img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    .produto h2 {
+      font-size: 1.2rem;
+      margin: 1rem 0 0.5rem;
+    }
+    .produto p {
+      color: #555;
+    }
+    .preco {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #28a745;
+      margin: 0.5rem 0;
+    }
+    .botao {
+      background: #28a745;
+      color: white;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+    }
+    .botao:hover {
+      background: #218838;
+    }
+    .checkout {
+      background: white;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .checkout h2 {
+      margin-bottom: 1rem;
+    }
+    .checkout label {
+      display: block;
+      margin-top: 1rem;
+    }
+    .checkout input, .checkout select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Minha Loja Online</h1>
+</header>
+
+<div class="carrinho-info" id="carrinho-info">
+  Carrinho: 0 itens | Total: R$ 0,00
+</div>
+
+<div class="container">
+  <div class="produto">
+    <img src="https://via.placeholder.com/250x200.png?text=Produto+1" alt="Produto 1">
+    <h2>Produto 1</h2>
+    <p>Descrição breve do produto 1.</p>
+    <div class="preco">R$ 99,90</div>
+    <button class="botao" onclick="adicionarAoCarrinho(99.90)">Comprar</button>
+  </div>
+
+  <div class="produto">
+    <img src="https://via.placeholder.com/250x200.png?text=Produto+2" alt="Produto 2">
+    <h2>Produto 2</h2>
+    <p>Descrição breve do produto 2.</p>
+    <div class="preco">R$ 149,90</div>
+    <button class="botao" onclick="adicionarAoCarrinho(149.90)">Comprar</button>
+  </div>
+</div>
+
+<div class="checkout">
+  <h2>Finalizar Compra</h2>
+  <label for="nome">Nome Completo:</label>
+  <input type="text" id="nome" required>
+
+  <label for="endereco">Endereço de Entrega:</label>
+  <input type="text" id="endereco" placeholder="Rua, Número, Bairro, Cidade" required>
+
+  <label for="pagamento">Forma de Pagamento:</label>
+  <select id="pagamento">
+    <option value="pix">PIX</option>
+    <option value="cartao">Cartão de Crédito</option>
+    <option value="boleto">Boleto Bancário</option>
+  </select>
+
+  <button class="botao" onclick="finalizarCompra()">Confirmar Pedido</button>
+</div>
+
+<script>
+  let totalItens = 0;
+  let totalPreco = 0.0;
+
+  function adicionarAoCarrinho(preco) {
+    totalItens++;
+    totalPreco += preco;
+    atualizarCarrinho();
+  }
+
+  function atualizarCarrinho() {
+    document.getElementById("carrinho-info").innerText =
+      `Carrinho: ${totalItens} item${totalItens > 1 ? 's' : ''} | Total: R$ ${totalPreco.toFixed(2).replace('.', ',')}`;
+  }
+
+  function finalizarCompra() {
+    const nome = document.getElementById('nome').value.trim();
+    const endereco = document.getElementById('endereco').value.trim();
+    const pagamento = document.getElementById('pagamento').value;
+
+    if (!nome || !endereco) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    alert(`Pedido confirmado!\nNome: ${nome}\nEndereço: ${endereco}\nPagamento: ${pagamento.toUpperCase()}\nTotal: R$ ${totalPreco.toFixed(2).replace('.', ',')}`);
+  }
+</script>
+
+</body>
+</html>
